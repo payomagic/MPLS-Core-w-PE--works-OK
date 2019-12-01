@@ -2,7 +2,7 @@
 
 !
 upgrade fpd auto
-version 12.4
+version 15.2
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
@@ -48,7 +48,7 @@ archive
 !
 ip tcp synwait-time 5
 !
-track 1 interface Serial5/0 line-protocol
+track 1 interface Serial3/0 line-protocol
 !
 !
 !
@@ -106,23 +106,23 @@ interface Ethernet2/7
  shutdown
  duplex half
 !
-interface Serial5/0
+interface Serial3/0
  description **to P2**
  ip address 10.1.1.0 255.255.255.254
  mpls ip
  serial restart-delay 0
 !
-interface Serial5/1
+interface Serial3/1
  ip address 10.2.1.0 255.255.255.254
  mpls ip
  serial restart-delay 0
 !
-interface Serial5/2
+interface Serial3/2
  ip address 10.2.1.2 255.255.255.254
  mpls ip
  serial restart-delay 0
 !
-interface Serial5/3
+interface Serial3/3
  description **to P4**
  ip address 10.1.1.2 255.255.255.254
  mpls ip
@@ -194,14 +194,14 @@ event manager applet NO-SH
  action 8 cli command "no sh"
  action 9 cli command "int se5/3"
 event manager applet NOSHUT3
- event syslog pattern "Interface Serial5/0, changed state to administratively down"
+ event syslog pattern "Interface Serial3/0, changed state to administratively down"
  action 1 cli command "enable"
  action 10 cli command "no sh"
  action 11 cli command "end"
  action 2 cli command "configure terminal"
- action 3 cli command "interface serial5/0"
+ action 3 cli command "interface Serial3/0"
  action 4 cli command "no shut"
- action 5 cli command "interface serial5/1"
+ action 5 cli command "interface Serial3/1"
  action 6 cli command "no sh"
  action 7 cli command "int se5/2"
  action 8 cli command "no sh"
