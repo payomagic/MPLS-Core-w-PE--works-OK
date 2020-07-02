@@ -44,3 +44,18 @@ https://github.com/payozon/MPLS-Core-w-PE--works-OK/blob/master/.MPLS-Core-PE4
 term len 0
 sh run
 ```
+### TAP interfaces install & masquerade for cloud connection
+```
+sudo nano /etc/network/interfaces
+auto tap0
+iface tap0 inet static
+        address 172.16.254.254
+        netmask 255.255.255.0
+        pre-up  /sbin/ip tuntap add dev tap0 mode tap
+        post-down /sbin/ip tuntap del dev tap0 mode tap
+```
+
+```
+sudo ifup tap0
+sudo iptables -t nat -A POSTROUTING -s 172.16.254.0/24 ! -d 172.16.254.0/24 -j MASQUERADE
+```
